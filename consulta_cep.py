@@ -28,7 +28,11 @@ while True:
          print("CEP inválido! Digite 8 números, sem espaços ou traços.")
         continue
         dados = consultar_cep(cep)
-        exibir_endereco(dados)
+        if dados.get("erro"):
+           print("CEP não encontrado.")
+           continue
+           exibir_endereco(dados)
+
     elif opcao == "2":
         print("Até logo!")
         break
