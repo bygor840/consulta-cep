@@ -1,6 +1,6 @@
 # consulta_cep.py
 import requests
-
+historico = []
 def limpar_cep(cep):
     return cep.replace("-", "").replace(".", "").strip()
 def cep_valido(cep):
@@ -20,7 +20,8 @@ def exibir_endereco(dados):
 while True:
     print("\n=== Consulta de CEP ===")
     print("1 - Buscar um CEP")
-    print("2 - Sair")
+    print("2 - Ver histórico de buscas")
+    print("3 - Sair")
     opcao = input("Escolha uma opção: ")
     if opcao == "1":
         cep = limpar_cep(input("Digite o CEP (só números): "))
@@ -31,9 +32,14 @@ while True:
         if dados.get("erro"):
            print("CEP não encontrado.")
            continue
-           exibir_endereco(dados)
-
+        exibir_endereco(dados)
     elif opcao == "2":
+        if not historico:
+            print("Nenhuma busca feita ainda.")
+        for item in historico:
+            print(item["cep"], "-", item["logradouro"])
+
+    elif opcao == "3":
         print("Até logo!")
         break
     else:
